@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { useAuth } from "@/context/auth-context";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
@@ -17,6 +19,14 @@ export default function LoginPage() {
     if (!ok) {
       setError("Invalid credentials");
     }
+  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    router.push("/dashboard/analytics");
+main
   }
 
   return (
@@ -26,6 +36,7 @@ export default function LoginPage() {
         <p className="text-sm text-gray-500 text-center">
           Use <strong>demo@example.com</strong> / <strong>password</strong>
         </p>
+ main
         <Input
           type="email"
           placeholder="Email"
@@ -44,6 +55,7 @@ export default function LoginPage() {
           Sign In
         </Button>
         {error && <p className="text-red-500 text-sm text-center">{error}</p>}
+main
       </form>
     </div>
   );
