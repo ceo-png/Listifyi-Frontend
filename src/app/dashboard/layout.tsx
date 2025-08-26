@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from "@/context/auth-context";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
- main
 
 export default function DashboardLayout({
   children,
@@ -24,7 +23,6 @@ export default function DashboardLayout({
       router.replace("/login");
     }
   }, [token, router]);
- main
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -39,7 +37,7 @@ export default function DashboardLayout({
         <Button onClick={logout} className="hidden md:block">
           Logout
         </Button>
-main
+        main
       </header>
       <div className="flex flex-1">
         <aside
@@ -61,7 +59,7 @@ main
           </nav>
         </aside>
         <main className="flex-1 p-4">{children}</main>
-          main
+        main
       </div>
     </div>
   );
