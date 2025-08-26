@@ -13,14 +13,14 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const [open, setOpen] = useState(false);
-  const { token, logout } = useAuth();
+  const { token, loading, logout } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
-    if (!token) {
+    if (!loading && !token) {
       router.replace("/login");
     }
-  }, [token, router]);
+  }, [token, loading, router]);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -61,7 +61,7 @@ export default function DashboardLayout({
             </Link>
           </nav>
         </aside>
-        <main className="flex-1 p-4">{token && children}</main>
+        <main className="flex-1 p-4">{!loading && token && children}</main>
       </div>
     </div>
   );

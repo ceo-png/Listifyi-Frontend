@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 
 interface AuthContextValue {
   token: string | null;
+  loading: boolean;
   login: (email: string, password: string) => Promise<boolean>;
   logout: () => void;
 }
@@ -13,13 +14,16 @@ const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [token, setToken] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
-    const stored = typeof window !== "undefined" ? localStorage.getItem("token") : null;
+    const stored =
+      typeof window !== "undefined" ? localStorage.getItem("token") : null;
     if (stored) {
       setToken(stored);
     }
+    setLoading(false);
   }, []);
 
   async function login(email: string, password: string) {
@@ -41,7 +45,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <AuthContext.Provider value={{ token, login, logout }}>
+    <AuthContext.Provider value={{ token, loading, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
