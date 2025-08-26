@@ -4,12 +4,27 @@ import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
+import { useAuth } from "@/context/auth-context";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+ main
+
 export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   const [open, setOpen] = useState(false);
+
+  const { token, logout } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!token) {
+      router.replace("/login");
+    }
+  }, [token, router]);
+ main
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -21,6 +36,10 @@ export default function DashboardLayout({
           Menu
         </Button>
         <h1 className="text-lg font-bold">Admin Dashboard</h1>
+        <Button onClick={logout} className="hidden md:block">
+          Logout
+        </Button>
+main
       </header>
       <div className="flex flex-1">
         <aside
@@ -42,6 +61,7 @@ export default function DashboardLayout({
           </nav>
         </aside>
         <main className="flex-1 p-4">{children}</main>
+          main
       </div>
     </div>
   );
